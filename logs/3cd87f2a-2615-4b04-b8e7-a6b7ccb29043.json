@@ -1,0 +1,43 @@
+{
+  "badgeNumber": "1268",
+  "date": "2024-08-30T23:12:54.947Z",
+  "tour": "1800x0000",
+  "vehicleNumber": "945",
+  "radioNumber": "75",
+  "scannerNumber": "5",
+  "tabletNumber": "3",
+  "fatReturnDate": "2024-09-12",
+  "callsign": "201",
+  "supervisor": "340",
+  "startMileage": "545454",
+  "activities": [
+    {
+      "event": "ENROUTE",
+      "timestamp": "2024-08-30T23:13:00.049Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-38",
+      "timestamp": "2024-08-30T23:13:14.515Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-27",
+      "timestamp": "2024-08-30T23:13:16.048Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T23:13:17.544Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-44",
+      "timestamp": "2024-08-30T23:13:18.280Z",
+      "badgeNumber": "1268"
+    }
+  ],
+  "endMileage": "0",
+  "mileage": -545454,
+  "status": "completed"
+}

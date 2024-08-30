@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start Tour</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Start New Tour</h1>
+    <form action="/start-tour" method="POST">
+        <input type="hidden" name="date" value="<%= currentDate %>">
+        <label for="tour">Tour (from time to time, in military time):</label>
+        <input type="text" name="tour" required><br>
+        
+        <label for="vehicleNumber">Vehicle Number:</label>
+        <input type="text" name="vehicleNumber" required><br>
+        
+        <label for="radioNumber">Radio Number:</label>
+        <input type="text" name="radioNumber" required><br>
+        
+        <label for="scannerNumber">Scanner Number:</label>
+        <input type="text" name="scannerNumber" required><br>
+        
+        <label for="tabletNumber">Tablet Number:</label>
+        <input type="text" name="tabletNumber" required><br>
+        
+        <label for="fatReturnDate">FAT Return Date:</label>
+        <input type="date" name="fatReturnDate" value="<%= fatReturnDate %>" required><br>
+        
+        <label for="callsign">Callsign:</label>
+        <input type="text" name="callsign" required><br>
+        
+        <label for="supervisor">Supervisor:</label>
+        <input type="text" name="supervisor" required><br>
+
+        
+        <label for="startMileage">Start Mileage:</label>
+        <input type="text" name="startMileage" required><br>
+        
+        <button type="submit">Start Tour</button>
+    </form>
+      <!-- Include the theme switcher script -->
+      <script>
+        function applyThemeBasedOnTime() {
+            const hour = new Date().getHours();
+            const body = document.body;
+
+            if (hour >= 6 && hour < 18) {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+            } else {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+            }
+        }
+
+        applyThemeBasedOnTime();
+    </script>
+</body>
+</html>

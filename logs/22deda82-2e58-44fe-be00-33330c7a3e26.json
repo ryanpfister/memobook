@@ -1,0 +1,28 @@
+{
+  "badgeNumber": "1222",
+  "date": "2024-08-30T22:54:30.597Z",
+  "tour": "1800x000",
+  "vehicleNumber": "2",
+  "radioNumber": "2",
+  "scannerNumber": "2",
+  "tabletNumber": "2",
+  "fatReturnDate": "2024-09-12",
+  "callsign": "2",
+  "supervisor": "2",
+  "startMileage": "1",
+  "activities": [
+    {
+      "event": "ENROUTE",
+      "timestamp": "2024-08-30T22:54:37.140Z",
+      "badgeNumber": "1222"
+    },
+    {
+      "event": "10-36",
+      "timestamp": "2024-08-30T22:54:38.094Z",
+      "badgeNumber": "1222"
+    }
+  ],
+  "endMileage": "3",
+  "mileage": 2,
+  "status": "completed"
+}

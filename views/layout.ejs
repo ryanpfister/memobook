@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Log</title>
+    <link rel="stylesheet" href="/styles.css">
+    <!-- Include your CSS files here -->
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <% if (user.isSupervisor) { %>
+                <li><a href="/supervisors">Supervisors</a></li>
+            <% } %>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <!-- Page content goes here -->
+        <%- body %>
+    </main>
+</body>
+</html>

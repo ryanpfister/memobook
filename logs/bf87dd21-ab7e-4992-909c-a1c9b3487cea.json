@@ -1,0 +1,63 @@
+{
+  "badgeNumber": "1268",
+  "date": "2024-08-30T22:41:08.461Z",
+  "tour": "1800x000",
+  "vehicleNumber": "00",
+  "radioNumber": "0",
+  "scannerNumber": "0",
+  "tabletNumber": "0",
+  "fatReturnDate": "2024-09-12",
+  "callsign": "0",
+  "supervisor": "Supervisor A",
+  "startMileage": "0",
+  "activities": [
+    {
+      "event": "test",
+      "timestamp": "2024-08-30T22:46:14.490Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T22:46:17.803Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T22:46:18.295Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T22:46:18.455Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T22:46:18.603Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T22:46:18.747Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-18",
+      "timestamp": "2024-08-30T22:46:18.887Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "CC 24-",
+      "timestamp": "2024-08-30T22:46:23.020Z",
+      "badgeNumber": "1268"
+    },
+    {
+      "event": "10-36",
+      "timestamp": "2024-08-30T22:54:56.238Z",
+      "badgeNumber": "1268"
+    }
+  ],
+  "endMileage": "11",
+  "mileage": 11,
+  "status": "completed"
+}

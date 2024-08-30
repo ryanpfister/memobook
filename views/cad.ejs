@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAD Page</title>
+    <link rel="stylesheet" href="/cad.css">
+</head>
+
+<body>
+    <h1>Tour CAD Page</h1>
+    <button onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+    <h2>Welcome, <%= officerName %> (Badge: <%= badgeNumber %>)</h2>
+    <div class="cad-container">
+        <div class="log-container" id="logContainer"></div>
+
+        <div class="input-area">
+            <input type="text" id="entryInput" placeholder="Enter your notes here...">
+            <button onclick="addCustomEntry()">Add Entry</button>
+        </div>
+
+        <div class="button-container">
+            <button onclick="addQuickEntry('ENROUTE')">ENROUTE</button>
+            <button onclick="addQuickEntry('10-36')">10-36</button>
+            <button onclick="addQuickEntry('10-38')">10-38</button>
+            <button onclick="addQuickEntry('10-27')">10-27</button>
+            <button onclick="addQuickEntry('10-18')">10-18</button>
+            <button onclick="addQuickEntry('10-44')">10-44</button>
+        </div>
+
+        <h2>End Tour</h2>
+        <form id="end-tour-form" action="/end-tour" method="post">
+            <input type="hidden" name="tourId" value="<%= tourId %>">
+            <label for="endMileage">Ending Mileage:</label>
+            <input type="number" id="endMileage" name="endMileage" required>
+            <button type="submit">End Tour</button>
+        </form>
+    </div>
+
+    <script>
+        const tourId = '<%= tourId %>';
+        const badgeNumber = '<%= badgeNumber %>';
+
+        function addQuickEntry(entryType) {
+            const timestamp = new Date().toISOString();
+            addEntryToLog(entryType, timestamp, badgeNumber);
+            saveLogEntry({ text: entryType, timestamp, badgeNumber });
+        }
+
+        function addCustomEntry() {
+            const entryInput = document.getElementById('entryInput');
+            const entryText = entryInput.value.trim();
+            const timestamp = new Date().toISOString();
+
+            if (entryText) {
+                addEntryToLog(entryText, timestamp, badgeNumber);
+                entryInput.value = '';
+                saveLogEntry({ text: entryText, timestamp, badgeNumber });
+            }
+        }
+
+        function addEntryToLog(entryText, timestamp, badgeNumber) {
+            const logContainer = document.getElementById('logContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'log-entry';
+            newEntry.innerHTML = `
+                ${new Date(timestamp).toLocaleTimeString()} - ${entryText || 'No text provided'} (Badge: ${badgeNumber})
+                <button class="delete-button" onclick="deleteEntry(this, '${timestamp}')">Delete</button>
+            `;
+            logContainer.insertBefore(newEntry, logContainer.firstChild);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function deleteEntry(button, timestamp) {
+            const logContainer = document.getElementById('logContainer');
+            const entry = button.parentElement;
+            logContainer.removeChild(entry);
+
+            fetch('/delete-log-entry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tourId, timestamp })
+            })
+                .then(response => response.text())
+                .then(data => console.log('Log entry deleted:', data))
+                .catch(error => console.error('Error deleting log entry:', error));
+        }
+
+        function saveLogEntry(entry) {
+            fetch('/log-event', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    event: entry.text,
+                    timestamp: entry.timestamp,
+                    badgeNumber: badgeNumber,
+                    tourId: tourId // Ensure this is the correct tourId
+                })
+            })
+                .then(response => response.text())
+                .then(data => console.log('Log entry saved:', data))
+                .catch(error => console.error('Error saving log entry:', error));
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch(`/get-log-entries?tourId=${tourId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const logContainer = document.getElementById('logContainer');
+                    if (data && data.activities && Array.isArray(data.activities)) {
+                        data.activities.forEach(entry => {
+                            const timestamp = new Date(entry.timestamp).toISOString();
+                            const eventText = entry.event || 'No event';
+                            const badgeNumber = entry.badgeNumber || 'Unknown Badge';
+                            addEntryToLog(eventText, timestamp, badgeNumber);
+                        });
+                    } else {
+                        console.error('Unexpected data format:', data);
+                    }
+                    logContainer.scrollTop = logContainer.scrollHeight;
+                })
+                .catch(error => console.error('Error fetching log entries:', error));
+        });
+    </script>
+</body>
+
+</html>

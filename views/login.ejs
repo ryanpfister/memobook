@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <a href="/register">Don't have an account? Register here</a>
+      <!-- Include the theme switcher script -->
+      <script>
+        function applyThemeBasedOnTime() {
+            const hour = new Date().getHours();
+            const body = document.body;
+
+            if (hour >= 6 && hour < 18) {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+            } else {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+            }
+        }
+
+        applyThemeBasedOnTime();
+    </script>
+</body>
+</html>

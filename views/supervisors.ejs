@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Supervisor Dashboard</h1>
+        </header>
+        <button onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+        <h2>Manage Users</h2>
+        <button onclick="document.getElementById('addUserModal').style.display='block'">Add User</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Badge Number</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (users && users.length > 0) { %>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.name %></td>
+                            <td><%= user.badgeNumber %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.role %></td>
+                            <td>
+                                <button onclick="editUser('<%= user.id %>')">Edit</button>
+                                <% if (user.role !== 'supervisor') { %>
+                                    <button onclick="makeSupervisor('<%= user.id %>')">Make Supervisor</button>
+                                <% } %>
+                                <button onclick="sendPasswordReset('<%= user.email %>')">Reset Password</button>
+                                <button onclick="deleteUser('<%= user.id %>')">Delete</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No users found.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <!-- Add User Modal -->
+        <div id="addUserModal" style="display:none;">
+            <h3>Add User</h3>
+            <form action="/add-user" method="post">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+                <label>Badge Number:</label>
+                <input type="text" name="badgeNumber" required>
+                <label>Email:</label>
+                <input type="email" name="email" required>
+                <label>Role:</label>
+                <select name="role" required>
+                    <option value="user">User</option>
+                    <option value="supervisor">Supervisor</option>
+                </select>
+                <button type="submit">Add User</button>
+                <button type="button" onclick="document.getElementById('addUserModal').style.display='none'">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Edit User Modal -->
+        <div id="editUserModal" style="display:none;">
+            <h3>Edit User</h3>
+            <form id="editUserForm" action="/edit-user" method="post">
+                <input type="hidden" name="userId">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+                <label>Badge Number:</label>
+                <input type="text" name="badgeNumber" required>
+                <label>Email:</label>
+                <input type="email" name="email" required>
+                <label>Role:</label>
+                <select name="role" required>
+                    <option value="user">User</option>
+                    <option value="supervisor">Supervisor</option>
+                </select>
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="document.getElementById('editUserModal').style.display='none'">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Include script for modal handling and AJAX requests -->
+        <script>
+            function editUser(userId) {
+                fetch(`/get-user?id=${userId}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        document.querySelector('#editUserForm [name="userId"]').value = user.id;
+                        document.querySelector('#editUserForm [name="name"]').value = user.name;
+                        document.querySelector('#editUserForm [name="badgeNumber"]').value = user.badgeNumber;
+                        document.querySelector('#editUserForm [name="email"]').value = user.email;
+                        document.querySelector('#editUserForm [name="role"]').value = user.role;
+                        document.getElementById('editUserModal').style.display = 'block';
+                    })
+                    .catch(error => console.error('Error fetching user details:', error));
+            }
+
+            function makeSupervisor(userId) {
+                fetch(`/make-supervisor`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                })
+                    .then(response => response.text())
+                    .then(message => alert(message))
+                    .catch(error => console.error('Error making supervisor:', error));
+            }
+
+            function sendPasswordReset(email) {
+                fetch(`/send-password-reset`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                })
+                    .then(response => response.text())
+                    .then(message => alert(message))
+                    .catch(error => console.error('Error sending password reset:', error));
+            }
+
+            function deleteUser(userId) {
+                fetch(`/delete-user`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                })
+                    .then(response => response.text())
+                    .then(message => alert(message))
+                    .catch(error => console.error('Error deleting user:', error));
+            }
+
+            function editTour(tourId) {
+                window.location.href = `/edit-tour?tourId=${tourId}`;
+            }
+        </script>
+    </div>
+</body>
+</html>

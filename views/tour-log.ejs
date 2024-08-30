@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Log</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Tour Log</h1>
+    <h2>Tour Details</h2>
+    <p>Date: <%= new Date(tour.date.seconds * 1000).toLocaleDateString() %></p>
+    <p>Tour: <%= tour.tour %></p>
+    <p>Vehicle Number: <%= tour.vehicleNumber %></p>
+    <p>Radio Number: <%= tour.radioNumber %></p>
+    <p>Scanner Number: <%= tour.scannerNumber %></p>
+    <p>Tablet Number: <%= tour.tabletNumber %></p>
+    <p>FAT Return Date: <%= tour.fatReturnDate %></p>
+    <p>Callsign: <%= tour.callsign %></p>
+    <p>Supervisor: <%= tour.supervisor %></p>
+    <p>Start Mileage: <%= tour.startMileage %></p>
+
+    <h2>Activity Log</h2>
+    <ul>
+        <% tour.activities.forEach(activity => { %>
+            <li><%= activity.activity %> - <%= new Date(activity.timestamp.seconds * 1000).toLocaleString() %></li>
+        <% }) %>
+    </ul>
+      <!-- Include the theme switcher script -->
+      <script>
+        function applyThemeBasedOnTime() {
+            const hour = new Date().getHours();
+            const body = document.body;
+
+            if (hour >= 6 && hour < 18) {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+            } else {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+            }
+        }
+
+        applyThemeBasedOnTime();
+    </script>
+</body>
+</html>

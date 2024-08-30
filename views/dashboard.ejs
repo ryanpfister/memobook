@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Officer Dashboard</h1>
+        </header>
+        <h2>
+            <!-- Conditionally render the supervisor's page button -->
+            <% if (isSupervisor) { %>
+                <a href="/supervisors">Go to Supervisor's Page</a>
+            <% } %>
+        </h2>
+        <div class="dashboard">
+            <h2>Welcome, <%= officerName %> (Badge: <%= badgeNumber %>)</h2>
+            <a href="/start-tour">Start New Tour</a>
+            <h3>Your Tours</h3>
+            <ul class="tour-list">
+                <% tours.forEach(tour => { %>
+                    <li>
+                        <a href="/cad?tourId=<%= tour.id %>">
+                            Tour ID: <%= tour.id %> | Vehicle: <%= tour.vehicleNumber %> | Start Mileage: <%= tour.startMileage %>
+                        </a>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <footer>
+            &copy; 2024 Ryan Pfister
+        </footer>
+    </div>
+</body>
+</html>

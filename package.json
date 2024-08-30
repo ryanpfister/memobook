@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "firebase": "^10.13.1",
+    "firebase-admin": "^12.4.0",
+    "fs": "^0.0.1-security",
+    "nodemailer": "^6.9.14",
+    "path": "^0.12.7",
+    "pdfkit": "^0.15.0",
+    "uuid": "^10.0.0"
+  }
+}
